@@ -1,0 +1,33 @@
+[
+  {
+    "id": "mensajes",
+    "mensajes": [
+      {
+        "email": "diego@gmail.com",
+        "author": {
+          "id": "diego@gmail.com",
+          "nombre": "diego",
+          "apellido": "bandhy",
+          "edad": "28",
+          "alias": "die",
+          "avatar": ""
+        },
+        "text": "hola",
+        "date": "05/01/2023 00:00:00"
+      },
+      {
+        "email": "sadsd@gmail.com",
+        "author": {
+          "id": "sadsd@gmail.com",
+          "nombre": "sdasd",
+          "apellido": "sdasd",
+          "edad": "asda",
+          "alias": "dsada",
+          "avatar": "sda"
+        },
+        "text": "sasa",
+        "date": "07/01/2023 09:15:23"
+      }
+    ]
+  }
+]

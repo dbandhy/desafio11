@@ -1,0 +1,84 @@
+{
+  
+  "dependencies": {
+  
+    
+  "@faker-js/faker": "^7.6.0",
+  
+    
+  "dotenv": "^16.0.3",
+  
+    
+  "express": "^4.18.2",
+  
+    
+  "express-handlebars": "^6.0.6",
+  
+    
+  "faker": "^5.5.3",
+  
+    
+  "knex": "^2.3.0",
+  
+    
+  "moment": "^2.29.4",
+  
+    
+  "mongo": "^0.1.0",
+  
+    
+  "mongodb": "^4.13.0",
+  
+    
+  "mongoose": "^6.8.2",
+  
+    
+  "mysql": "^2.18.1",
+  
+    
+  "normalizr": "^3.6.2",
+  
+    
+  "socket.io": "^4.5.4",
+  
+    
+  "sqlite": "^4.1.2",
+  
+    
+  "sqlite3": "^5.1.4"
+  
+  },
+  
+  "name": "ultimaentrega2022",
+  
+  "version": "1.0.0",
+  
+  "main": "index.js",
+  
+  "type": "module",
+  
+  "directories": {
+  
+    
+  "test": "test"
+  
+  },
+  
+  "scripts": {
+  
+    
+  "start": "node .",
+  
+    
+  "test": "nodemon index.js"
+  
+  },
+  
+  "keywords": [],
+  
+  "author": "",
+  
+  "license": "ISC",
+  
+  "description": ""
+}

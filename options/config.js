@@ -16,4 +16,10 @@ const optionsMariaDB = {
 	}
 }
 
-module.exports = { optionsSQLite3, optionsMariaDB };
+//No es necesario para que la db funcione
+const mongodbConnection = "mongodb://localhost:27017"
+
+
+
+
+module.exports = { optionsSQLite3, optionsMariaDB , mongodbConnection };

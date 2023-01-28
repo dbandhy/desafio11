@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="/socket.io/socket.io.min.js"></script>
-    <title>Desafio 11</title>
+    <title>Desafio 12</title>
 </head>
 <body>
     <div>
@@ -48,10 +48,13 @@
                 <input id="input-message"  type="text" name="message" required placeholder="Ingresá un mensaje...">
                 <button type="submit" >Enviar!</button>
             </div>
-            <div><button type="submit" >SALIR</button></div>
-
 
         </form>
+        <div>
+            <form action="/logout" method="post">
+                <button type="submit">SALIR</button>
+            </form>
+        </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>

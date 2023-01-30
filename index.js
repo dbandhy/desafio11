@@ -25,9 +25,8 @@ const mongoUrl = 'mongodb://localhost/coderhouse'
 app.use(cookieParser())
 
 app.use(session({
-
     store: MongoStore.create( {mongoUrl}),
-    secret: '1234',
+    secret: 'secreto',
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -45,9 +44,9 @@ function auth(req, res, next) {
   } else
   res.redirect('./login')
 }
-
+//
 app.get('/', auth, (req, res) => {
-  res.sendFile('index.html')
+  res.redirect('/')
 })
 
  
@@ -61,7 +60,7 @@ app.post('/login', (req, res) => {
   
     req.session.user = username
     req.session.admin = true
-    res.redirect('./index.html')
+    res.redirect('/',  {root: './public'})
   })
  
 app.get('/login', (req, res) => {

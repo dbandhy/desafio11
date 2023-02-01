@@ -73,12 +73,12 @@ app.post('/login', (req, res) => {
   })
 
   
-app.get('/logout', (req, res) => {
+app.post('/logout', (req, res) => {
   req.session.destroy(err => {
     if (err) {
       res.json({ status: 'Logout ERROR', body: err })
     } else {
-      res.send('Logout ok!')
+      res.sendFile('login.html', {root: './public'})
     }
   })
 })

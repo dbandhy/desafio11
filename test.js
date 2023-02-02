@@ -6,7 +6,7 @@ import routers from './routers/index.js'
 import { initSocket } from './socket.js'
 import { randomUUID } from 'crypto';
 import handlebars from 'express-handlebars';
-import ejs from 'ejs'
+
 //desafio 12
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
@@ -25,9 +25,6 @@ const app = express();
 
 //conexión mongo
 const mongoUrl = 'mongodb://localhost/coderhouse'
-//HANDLEBARS 
-//const headerTemplate = handlebars.compile(fs.readFileSync("index.html", "utf-8"));
-
 
 app.use(cookieParser())
 
@@ -46,6 +43,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('public', 'handlebars');
+
 //handlebars
 
 // app.engine('handlebars', handlebars({ defaultLayout: 'main' }));

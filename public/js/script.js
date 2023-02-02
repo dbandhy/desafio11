@@ -1,4 +1,8 @@
+
+
 (function () {
+    
+    
     const centroDeMensajes = document.getElementById('centroDeMensajes');
 
     const formMessage = document.getElementById('form-message');

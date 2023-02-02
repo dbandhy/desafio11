@@ -10,6 +10,11 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import sfs from 'session-file-store';
 import MongoStore from 'connect-mongo';
+//Desafio 13
+import passport from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local'
+import bCrypt from 'bcrypt'
+
 
 const fileStore = sfs(session)
 
@@ -37,6 +42,36 @@ app.use(session({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+//middleware
+function isValidPassword(firstName, password) {
+  return bCrypt.compareSync(firstName, password)
+}
+
+//SIGN UP
+passport.use('login', new LocalStrategy (
+  (firstName, password, done) => {
+    User.findOne( {firstName}, (err, user) => {
+      if (err)
+        return done(err);
+
+      if (!user) {
+        console.log('no se encontró' + firstName)
+        return done(null, false)
+      }
+
+      if (!isValidPassword(user, password)) {
+        console.log('contraseña inválida')
+        return done(null, false)
+      }
+
+      return done(null, user)
+    })
+  }
+))
+
+
+
 
 function auth(req, res, next) {
   if (req.session.user === 'pepe' && req.session.admin) {
@@ -96,7 +131,7 @@ initSocket(server);
 
 //LISTEN
 server.listen( port, () => {
-    console.log(`http server is listening on the port ${server.address().port}`);
+    
     console.log(`http://localhost:${server.address().port}`);
 })
 

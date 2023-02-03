@@ -4,7 +4,7 @@ import path from 'path'
 import { fileURLToPath } from 'url';
 import routers from './routers/index.js'
 import { initSocket } from './socket.js'
-import { randomUUID } from 'crypto';
+import { createHash, randomUUID } from 'crypto';
 //desafio 12
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
@@ -70,6 +70,35 @@ passport.use('login', new LocalStrategy (
   }
 ))
 
+function isValidPassword(user, password) {
+  return bCrypt.compareSync(password, user.password)
+}
+
+passport.use('signup', new LocalStrategy ({
+  passReqToCallback: true
+},
+  (req, username, password, done) => {
+    User.findOne( {'username': username }, 
+      function (err, user) {
+        if (err) {
+          console.log(err)
+          return done(err)
+        }
+
+        if (user) {
+          console.log('usuario existe')
+          return done(null, false)
+        }
+
+        const newUser = {
+          username: username,
+          password: createHash(password),
+          email: req.body.email,
+          name: req.body.name
+        }
+      })
+  }
+))
 
 
 

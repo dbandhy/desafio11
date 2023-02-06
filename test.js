@@ -5,14 +5,19 @@ import { fileURLToPath } from 'url';
 import routers from './routers/index.js'
 import { initSocket } from './socket.js'
 import { randomUUID } from 'crypto';
-import handlebars from 'express-handlebars';
-
 //desafio 12
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import sfs from 'session-file-store';
 import MongoStore from 'connect-mongo';
+import handlebars from 'express-handlebars';
 import fs from 'fs'
+import { PORT } from './config.js'
+//desafio 14
+import dotenv from 'dotenv'
+import parseArgs from 'minimist'
+import { fork } from 'child_process';
+import {objectAleatorio} from'./controllers/getObject.js'
 
 
 const fileStore = sfs(session)
@@ -23,8 +28,12 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
+
+const args = parseArgs(process.argv.slice(2));
+//const PORT = args.p ?? 8080;
+
 //conexión mongo
-const mongoUrl = 'mongodb://localhost/coderhouse'
+const mongoUrl = "mongodb://localhost/coderhouse"
 
 app.use(cookieParser())
 
@@ -44,8 +53,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('public', 'handlebars');
 
-//handlebars
-
+// // //handlebars
 // app.engine('handlebars', handlebars({ defaultLayout: 'main' }));
 // app.set('view engine', 'handlebars');
 
@@ -79,11 +87,54 @@ app.post('/logout', (req, res) => {
   })
 })
 
+
+//desafio 14
+
+app.get('/info', (req, res) => {
+  
+dotenv.config()
+
+  const info = {
+        dir: process.cwd(),
+        idProceso: process.pid,
+        nodeVersion: process.version,
+        path: process.execPath,
+        OS: process.platform,
+        memoria: JSON.stringify(process.memoryUsage().rss, null, 2),
+
+  }
+  res.json(info)
+  
+})
+app.get(`/api/randoms`, (req, res) => {
+  res.render(`objectRandomIn`)
+});
+
+app.post('/api/randoms', (req, res) => {
+  //CALCULO
+  const { cantBucle } =  req.body;
+  process.env.CANT_BUCLE = cantBucle;
+
+  const objectRandom = fork(`./controller/getObject.js`);
+  objectRandom.on(`message`, dataRandom => {
+      //console.table(dataRandom)
+      return res.send(dataRandom);
+    })
+})
+
+app.get(`/objectRandomOut`, (req, res) => {
+  res.render(`objectRandomOut`)
+});
+
+
+
 app.use('/login', routers);
 
 
 const server = http.createServer(app);
 initSocket(server);
+
+
 
 
 //LISTEN

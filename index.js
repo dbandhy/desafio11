@@ -15,10 +15,13 @@ import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local'
 import bCrypt from 'bcrypt'
 
+//DESAFIO 14
+import {PORT } from '/config.js'
+
 
 const fileStore = sfs(session)
 
-const port = 8080
+//const port = 8080
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -161,7 +164,7 @@ initSocket(server);
 //LISTEN
 server.listen( port, () => {
     
-    console.log(`http://localhost:${server.address().port}`);
+    console.log(`http://localhost:${server.address().PORT}`);
 })
 
 server.on("error", error => console.log(`Error en servidor ${error}`));

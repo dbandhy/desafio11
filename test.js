@@ -106,25 +106,19 @@ dotenv.config()
   res.json(info)
   
 })
-app.get(`/api/randoms`, (req, res) => {
-  res.render(`objectRandomIn`)
-});
 
-app.post('/api/randoms', (req, res) => {
-  //CALCULO
-  const { cantBucle } =  req.body;
-  process.env.CANT_BUCLE = cantBucle;
 
-  const objectRandom = fork(`./controller/getObject.js`);
-  objectRandom.on(`message`, dataRandom => {
-      //console.table(dataRandom)
-      return res.send(dataRandom);
+app.use('/api/randoms', (req, res) => {
+
+  const n = parseInt(req.query.cant) ? parseInt(req.query.cant) : 500000   
+    
+    const forked = fork('./controllers/fork.js')
+    forked.on('message', message => {
+        res.json(message)
     })
+    setTimeout(() => {forked.send(n)}, 1)
 })
 
-app.get(`/objectRandomOut`, (req, res) => {
-  res.render(`objectRandomOut`)
-});
 
 
 

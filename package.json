@@ -15,6 +15,9 @@
   "child-process": "^1.0.2",
   
     
+  "connect-flash": "^0.1.1",
+  
+    
   "connect-mongo": "^4.6.0",
   
     
@@ -40,6 +43,9 @@
   
     
   "faker": "^5.5.3",
+  
+    
+  "flash": "^1.1.0",
   
     
   "handlebars": "^4.7.7",

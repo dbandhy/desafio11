@@ -7,6 +7,8 @@ import mongoose from 'mongoose';
 import passport from 'passport';
 import bCrypt from 'bcrypt';
 import { Strategy as LocalStrategy } from 'passport-local';
+import cluster from 'cluster'
+import os from 'os'
 
 import { User } from './models/users.js';
 
@@ -177,6 +179,50 @@ app.get("/", (req, res) => {
 		res.redirect("login");
 	}
 });
+
+//desafio 15
+
+
+const FORK = args.FORK;
+const CLUSTER = args.CLUSTER;
+
+
+
+const runServer = (PORT) => {
+    httpServer.listen(PORT, () => console.log(`Servidor escuchando el puerto ${PORT}`));
+}
+
+if (CLUSTER) {
+    if (cluster.isPrimary) {
+        console.log(`Nodo primario ${process.pid} corriendo`);
+
+        for (let i = 0; i < numCPUs; i++) {
+            cluster.fork();
+        }
+
+        cluster.on(`exit`, (worker, code, signal) => {
+            console.log(`Worker ${worker.process.pid} finalizado`);
+            cluster.fork();
+        });
+
+    } else {
+        console.log(`Nodo Worker corriendo en el proceso ${process.pid}`);
+        runServer(PORT);
+    }
+
+} else {
+    runServer(PORT);
+}
+
+
+const data = 
+app.get('/info', data)
+
+
+
+const content =
+app.get('/api/random', content)
+
 
 const PORT = process.env.PORT ?? 8080;
 const srv = app.listen(PORT, async () => {

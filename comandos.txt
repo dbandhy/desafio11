@@ -1,0 +1,21 @@
+#COMANDOS DESAFIO 15
+
+- MODO CLUSTER : nodemon test3.js --CLUSTER
+-MODO FORK : nodemon server.js --FORK
+
+CORRER: pm2 start test3.js
+ / DETENER: pm2 stop test3.js
+
+MONIT: pm2 monit
+LOGS: pm2 logs
+
+ELIMINAR TODO: pm2 delete all 
+
+LISTAR: pm2 list
+
+SERVER EN MODO ESCUCHA ACTIVA: pm2 start test3.js -i max --watch
+
+#GNIX 
+
+En PowerShell abrir start nginx.exe
+Luego de hacer cambios ejecutar config: nginx.exe -t

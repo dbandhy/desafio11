@@ -18,7 +18,7 @@ import dotenv from 'dotenv'
 import parseArgs from 'minimist'
 import { fork } from 'child_process';
 import {objectAleatorio} from'./controllers/getObject.js'
-
+//desafio 15
 
 const fileStore = sfs(session)
 
@@ -119,17 +119,10 @@ app.use('/api/randoms', (req, res) => {
     setTimeout(() => {forked.send(n)}, 1)
 })
 
-
-
-
 app.use('/login', routers);
-
 
 const server = http.createServer(app);
 initSocket(server);
-
-
-
 
 //LISTEN
 server.listen( port, () => {

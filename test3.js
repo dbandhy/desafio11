@@ -7,10 +7,18 @@ import mongoose from 'mongoose';
 import passport from 'passport';
 import bCrypt from 'bcrypt';
 import { Strategy as LocalStrategy } from 'passport-local';
+
+//desafrio 15
 import cluster from 'cluster'
 import os from 'os'
-
+import dotenv from 'dotenv'
+import parseArgs from 'minimist'
 import { User } from './models/users.js';
+import { cpus } from 'os'
+
+
+const args = parseArgs(process.argv.slice(2));
+const numCPUs = cpus().length
 
 const mongoDB = "mongodb://localhost/coderhouse"
 
@@ -180,17 +188,29 @@ app.get("/", (req, res) => {
 	}
 });
 
-//desafio 15
 
+
+// const data = 
+// app.get('/info', data)
+
+// const content =
+// app.get('/api/random', content)
+
+
+// const PORT = process.env.PORT ?? 8080;
+
+const PORT = args.p ?? 8080
+
+//desafio 15
 
 const FORK = args.FORK;
 const CLUSTER = args.CLUSTER;
 
-
-
 const runServer = (PORT) => {
-    httpServer.listen(PORT, () => console.log(`Servidor escuchando el puerto ${PORT}`));
+    app.listen(PORT, () => console.log(`Servidor escuchando el puerto ${PORT}`));
 }
+
+
 
 if (CLUSTER) {
     if (cluster.isPrimary) {
@@ -213,28 +233,3 @@ if (CLUSTER) {
 } else {
     runServer(PORT);
 }
-
-
-const data = 
-app.get('/info', data)
-
-
-
-const content =
-app.get('/api/random', content)
-
-
-const PORT = process.env.PORT ?? 8080;
-const srv = app.listen(PORT, async () => {
-	console.log(`Servidor http escuchando en el puerto ${srv.address().port}`);
-	try {
-		const mongo = await mongoose.connect(mongoDB, {
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
-		});
-		console.log("conectado a mongodb");
-	} catch (error) {
-		console.log(`Error en conexión de Base de datos: ${error}`);
-	}
-});
-srv.on("error", (error) => console.log(`Error en servidor ${error}`));
